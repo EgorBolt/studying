@@ -7,17 +7,12 @@ import java.util.Scanner;
 public class Main {
     public static void main(String args[]) {
         Receive receiver = new Receive();
-        Send sender = new Send();
+        Send sender = new Send(args[0], Integer.parseInt(args[1]));
         Scanner in = new Scanner(System.in);
         String message;
 
         receiver.start();
-        while (!(message = in.nextLine()).equals("end")) {
-            try {
-                sender.multicast(message);
-            } catch (IOException eIO) {
-                eIO.printStackTrace();
-            }
-        }
+        sender.start();
+
     }
 }

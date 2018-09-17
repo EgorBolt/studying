@@ -1,23 +1,46 @@
 package ru.nsu.fit.g16201.Boldyrev;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
+import java.net.*;
 
-public class Send {
-    private DatagramSocket sendSocket;
-    private InetAddress multicastGroup;
-    private byte[] message;
+public class Send extends Thread {
+    private InetAddress groupMulticastIP;
+    private int groupPort;
 
-    public void multicast(String multicastMessage) throws IOException {
-        multicastGroup = InetAddress.getByName("235.0.0.0");
-        sendSocket = new DatagramSocket();
-        message = multicastMessage.getBytes();
 
-        DatagramPacket packet = new DatagramPacket(message, message.length,
-                multicastGroup, 5000);
-        sendSocket.send(packet);
-        sendSocket.close();
+    public Send(String ipAddress, int port) {
+        groupPort = port;
+        try {
+            groupMulticastIP = InetAddress.getByName(ipAddress);
+        } catch (UnknownHostException eUnknownHost) {
+            eUnknownHost.printStackTrace();
+        }
+    }
+
+    public void run() {
+        try {
+            byte[] message;
+            String msg = "Hi!";
+            message = msg.getBytes();
+
+            while (true) {
+                DatagramSocket sendSocket = new DatagramSocket();
+
+                DatagramPacket packet = new DatagramPacket(message, message.length,
+                        groupMulticastIP, groupPort);
+                sendSocket.send(packet);
+                sendSocket.close();
+                try {
+                    Thread.sleep(1000);
+                }
+                catch (InterruptedException eInterrupted) {
+                    eInterrupted.printStackTrace();
+                }
+            }
+        } catch (SocketException eSocket) {
+            eSocket.printStackTrace();
+        } catch (IOException eIO) {
+            eIO.printStackTrace();
+        }
     }
 }
