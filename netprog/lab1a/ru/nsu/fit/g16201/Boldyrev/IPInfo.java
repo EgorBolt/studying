@@ -42,4 +42,8 @@ public class IPInfo {
     public String getIpAddress() {
         return ipAddress.getHostAddress();
     }
+
+    public void setIpStatus() {
+        ipStatus = 3;
+    }
 }

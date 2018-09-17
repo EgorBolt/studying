@@ -50,9 +50,10 @@ public class Receive extends Thread {
                         checkConnection.listAll(listAddress);
                     }
                 }
-//                else {
-//                    checkConnection.checkConnect(listAddress);
-//                }
+                else {
+                    checkConnection.updateConnection(listAddress, gotAdd);
+                    checkConnection.checkConnect(listAddress);
+                }
             }
             //multicastSocket.close();
         } catch (IOException eIO) {

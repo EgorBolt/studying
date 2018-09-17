@@ -12,7 +12,7 @@ class CheckConnection extends Thread {
 
         for (int i = 0; i < addList.size(); i++) {
             if (addList.get(i).getIpStatus() == 0) {
-                System.out.println("Program with IP " + addList.get(i).getIpAddress() + "has been shut down.");
+                System.out.println("Program with IP " + addList.get(i).getIpAddress() + " has been shut down.");
                 addList.remove(i);
                 flag = true;
             }
@@ -23,6 +23,7 @@ class CheckConnection extends Thread {
         if (flag) {
             System.out.println("Edited IP list:");
             this.listAll(addList);
+            System.out.println("Total amount of program's copies: " + addList.size() + "\n");
         }
     }
 
@@ -33,6 +34,15 @@ class CheckConnection extends Thread {
         System.out.println("IP list:");
         for (int i = 0; i < addList.size(); i++) {
             System.out.println(addList.get(i).getIpAddress());
+        }
+        System.out.println("Total amount of program's copies: " + addList.size() + "\n");
+    }
+
+    void updateConnection(ArrayList<IPInfo> addList, IPInfo connection) {
+        for (int i = 0; i < addList.size(); i++) {
+            if (addList.get(i).equals(connection)) {
+                addList.get(i).setIpStatus();
+            }
         }
     }
 }
