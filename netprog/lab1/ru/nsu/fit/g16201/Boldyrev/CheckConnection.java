@@ -21,7 +21,6 @@ class CheckConnection extends Thread {
             }
         }
         if (flag) {
-            System.out.println("Edited IP list:");
             this.listAll(addList);
         }
     }
