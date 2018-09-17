@@ -17,7 +17,8 @@ public class IPInfo {
 
         if (v instanceof IPInfo) {
             IPInfo ptr = (IPInfo) v;
-            retVal = ptr.ipAddress == this.ipAddress;
+            //retVal = ptr.ipAddress == this.ipAddress;
+            return this.ipAddress.equals(ptr.ipAddress);
         }
 
         return retVal;

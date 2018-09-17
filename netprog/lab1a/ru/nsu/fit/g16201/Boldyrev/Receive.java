@@ -34,21 +34,25 @@ public class Receive extends Thread {
             multicastSocket.joinGroup(multicastGroup);
             //listAddress = Collections.synchronizedList(listAddress);
             CheckConnection checkConnection = new CheckConnection();
+            listAddress = new ArrayList<>();
 
             while (true) {
                 DatagramPacket packet = new DatagramPacket(message, message.length);
                 multicastSocket.receive(packet);
                 InetAddress address = packet.getAddress();
                 IPInfo gotAdd = new IPInfo(address, 3);
-                if (!(listAddress.contains(gotAdd)) && listAddress.size() > 0) {
-                    checkConnection.checkConnect(listAddress);
-                    System.out.println("Adding new IP address:");
-                    listAddress.add(gotAdd);
-                    checkConnection.listAll(listAddress);
+                //System.out.println("Huh?");
+                if (!(listAddress.contains(gotAdd))/* && listAddress.size() > 0*/) {
+                    synchronized (listAddress) {
+                        checkConnection.checkConnect(listAddress);
+                        System.out.println("Adding new IP address:");
+                        listAddress.add(gotAdd);
+                        checkConnection.listAll(listAddress);
+                    }
                 }
-                else {
-                    checkConnection.checkConnect(listAddress);
-                }
+//                else {
+//                    checkConnection.checkConnect(listAddress);
+//                }
             }
             //multicastSocket.close();
         } catch (IOException eIO) {

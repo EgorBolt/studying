@@ -36,6 +36,7 @@ public class Send extends Thread {
                 catch (InterruptedException eInterrupted) {
                     eInterrupted.printStackTrace();
                 }
+                //System.out.println("Message has been sent");
             }
         } catch (SocketException eSocket) {
             eSocket.printStackTrace();

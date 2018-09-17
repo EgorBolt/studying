@@ -17,9 +17,7 @@ class CheckConnection extends Thread {
                 flag = true;
             }
             else {
-                IPInfo editInfo = addList.get(i);
-                editInfo.decreaseStatus();
-                addList.add(i, editInfo);
+                addList.get(i).decreaseStatus();
             }
         }
         if (flag) {
@@ -29,6 +27,9 @@ class CheckConnection extends Thread {
     }
 
     void listAll(ArrayList<IPInfo> addList) {
+        if (addList.size() == 0) {
+            System.out.println("List is empty.");
+        }
         System.out.println("IP list:");
         for (int i = 0; i < addList.size(); i++) {
             System.out.println(addList.get(i).getIpAddress());
