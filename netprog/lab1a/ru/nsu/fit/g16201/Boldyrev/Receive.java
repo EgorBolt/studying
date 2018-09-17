@@ -53,6 +53,7 @@ public class Receive extends Thread {
                 else {
                     checkConnection.updateConnection(listAddress, gotAdd);
                     checkConnection.checkConnect(listAddress);
+//                    checkConnection.getListSize();
                 }
             }
             //multicastSocket.close();

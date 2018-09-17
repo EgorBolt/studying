@@ -23,7 +23,6 @@ class CheckConnection extends Thread {
         if (flag) {
             System.out.println("Edited IP list:");
             this.listAll(addList);
-            System.out.println("Total amount of program's copies: " + addList.size() + "\n");
         }
     }
 
@@ -45,4 +44,8 @@ class CheckConnection extends Thread {
             }
         }
     }
+
+//    int getListSize(ArrayList<IPInfo> addList) {
+//        return addList.size();
+//    }
 }
