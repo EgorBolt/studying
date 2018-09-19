@@ -1,6 +1,5 @@
-package ru.nsu.fit.g16201.Boldyrev;
-
-import static java.lang.System.exit;
+import ru.nsu.fit.g16201.Boldyrev.Receive;
+import ru.nsu.fit.g16201.Boldyrev.Send;
 
 public class Main {
     public static void main(String args[]) {

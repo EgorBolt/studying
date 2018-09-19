@@ -43,8 +43,4 @@ class CheckConnection extends Thread {
             }
         }
     }
-
-//    int getListSize(ArrayList<IPInfo> addList) {
-//        return addList.size();
-//    }
 }
