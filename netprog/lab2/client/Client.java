@@ -10,16 +10,16 @@ public class Client {
             System.exit(-1);
         }
 
-        try {
+        try (
             Socket socket = new Socket(args[1], Integer.parseInt(args[2]));
             DataInputStream inputStream = new DataInputStream(socket.getInputStream());
             DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
+        ) {
             File target = new File(args[0]);
             FileInputStream in = new FileInputStream(target);
 
             int byteAmountRead;
             String fileName = target.getName();
-            //String fileSize = String.valueOf(target.length());
             long fileSize = target.length();
 
             outputStream.writeUTF(fileName);
@@ -54,11 +54,6 @@ public class Client {
                 System.err.println("Something wrong with sending file, abort.");
             }
 
-            inputStream.close();
-            outputStream.close();
-            in.close();
-            socket.close();
-
         } catch (FileNotFoundException eFileNotFound) {
             System.err.println(eFileNotFound.getMessage());
             System.exit(-2);
@@ -69,6 +64,9 @@ public class Client {
         } catch (IOException eIO) {
             System.err.println(eIO.getMessage());
             System.exit(-4);
+        }
+        finally {
+            in.close();
         }
     }
 }

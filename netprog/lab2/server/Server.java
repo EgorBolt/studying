@@ -13,15 +13,16 @@ public class Server implements Runnable {
     @Override
     public void run() {
 
-        try {
+        try (
+            DataInputStream inputStream = new DataInputStream(client.getInputStream());
+            DataOutputStream outputStream = new DataOutputStream(client.getOutputStream());
+        ) {
             long timer = 0;
             double iteration = 0;
             double speed = 0;
             double averageSpeed = 0;
             long sentBytes = 0;
             double resultSpeed = 0;
-            DataInputStream inputStream = new DataInputStream(client.getInputStream());
-            DataOutputStream outputStream = new DataOutputStream(client.getOutputStream());
             File result;
 
             String fileName = inputStream.readUTF();
@@ -60,7 +61,7 @@ public class Server implements Runnable {
                 timer += (endTime - startTime);
                 if (timer >= 1000) {
                     speed = (double)sentBytes / timer / 1024;
-                    System.out.println("Current network speed for IP " + client.getInetAddress() + ": " + speed + " kb/s");
+                    System.out.println("Current network speed for IP " + fileName +  ": " + speed + " kb/s");
                     timer = 0;
                     sentBytes = 0;
                     averageSpeed += speed;
@@ -71,18 +72,16 @@ public class Server implements Runnable {
 
             //TODO: Прикрутить Maven
             if (iteration == 0) {
-                System.out.println("\nFile " + fileName + " from IP " + client.getInetAddress() + " has been successfully saved.\n" + sentBytes +
+                System.out.println("\nFile " + fileName + " has been successfully saved.\n" + sentBytes +
                         " bytes were sent in " + timer + " milliseconds.");
             }
             else {
                 resultSpeed = averageSpeed / iteration;
-                System.out.println("\nFile " + fileName + " from IP " + client.getInetAddress() + " has been successfully saved.\nAverage speed: " + resultSpeed + " kb/s");
+                System.out.println("\nFile " + fileName + " has been successfully saved.\nAverage speed: " + resultSpeed + " kb/s");
             }
 
             outputStream.writeBoolean(true);
 
-            inputStream.close();
-            outputStream.close();
             client.close();
 
         } catch (FileNotFoundException eFileNotFound) {
@@ -93,6 +92,14 @@ public class Server implements Runnable {
             System.exit(-3);
         } catch (IOException eIO) {
             System.err.println("Client has been shut down, terminating the thread.");
+        }
+        finally {
+            try {
+                client.close();
+                result.close();
+            } catch (IOException eServerClose) {
+                System.err.println("Error while closing server's resources.")
+            }
         }
     }
 }

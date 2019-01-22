@@ -16,9 +16,9 @@ public class ServerFactory {
             System.exit(-1);
         }
 
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        try (
             ServerSocket server = new ServerSocket(Integer.parseInt(args[0]));
+        ) {
             System.out.println("Server has been started.");
 
             while (!server.isClosed()) {
@@ -27,9 +27,10 @@ public class ServerFactory {
                 System.out.println("Connection from IP " + client.getInetAddress() + " has been accepted.");
             }
 
-            executeIt.shutdown();
         } catch (IOException eIO) {
             System.err.println(eIO.getMessage());
+        } finally {
+            executeIt.shutdown();
         }
     }
 }
