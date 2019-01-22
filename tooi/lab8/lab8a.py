@@ -12,9 +12,10 @@ a = A(5)
 a2 = A(100)
 b = B(10)
 
-b.changeNumber(a, 11)
 print(a.number)
 print(a2.number)
+print(b.number)
+print()
 
-
-
+b.changeNumber(a, 11)
+print(a.number)

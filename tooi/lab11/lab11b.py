@@ -27,7 +27,7 @@ class BankAccount:
 
 a = BankAccount()
 a.printBalance("12345", 3000)
-# a.printBalance("456", 10000)
+a.printBalance("456", 10000)
 
 a.publicFunc()
 a._BankAccount__privateFunc() #фича

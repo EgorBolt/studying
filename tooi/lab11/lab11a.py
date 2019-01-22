@@ -28,7 +28,7 @@ class A:
 a = A()
 a.func1()
 a._func2()
-# a.__func3()
+a.__func3()
 
 a.printA1()
 a.printA2()

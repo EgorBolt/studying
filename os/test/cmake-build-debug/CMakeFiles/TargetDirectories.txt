@@ -1,0 +1,3 @@
+/home/egorbolt/Code/studying/os/test/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/egorbolt/Code/studying/os/test/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/egorbolt/Code/studying/os/test/cmake-build-debug/CMakeFiles/test.dir
